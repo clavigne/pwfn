@@ -27,7 +27,6 @@ def lint(session: Session) -> None:
     session.install(
         "flake8",
         "flake8-black",
-        "flake8-bugbear",
         "flake8-import-order",
         "flake8-annotations",
         "flake8-docstrings",
@@ -51,5 +50,6 @@ def fmt(session: Session) -> None:
 def mypy(session: Session) -> None:
     """Run the static type checker."""
     args = session.posargs or locations
+    session.install("numpy")
     session.install("mypy")
     session.run("mypy", *args)

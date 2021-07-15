@@ -3,15 +3,17 @@ from __future__ import annotations
 
 # std
 from dataclasses import dataclass
+from typing import Any, cast, List
 
 # external
 import numpy as np
+from numpy.typing import NDArray
 
 # module
 from ._orbpowers import PATDATA
 
 
-def _format(x: np.ndarray) -> str:
+def _format(x: NDArray[Any]) -> str:
     s = np.array2string(
         x, precision=4, separator=",", suppress_small=True, threshold=10
     )
@@ -19,25 +21,30 @@ def _format(x: np.ndarray) -> str:
 
 
 class ParserError(Exception):
+    """An parsing logic error."""
+
     pass
 
 
 @dataclass
 class Wavefunction:
+    """A container for a parsed .wfn file."""
+
     natm: int
     norb: int
     nmo: int
     at_name: list[str]
-    at_charge: np.ndarray
-    at_position: np.ndarray
-    orb_center: np.ndarray
-    orb_type: np.ndarray
-    orb_exponent: np.ndarray
-    mo_energy: np.ndarray
-    mo_occupation: np.ndarray
-    mo_coeffs: np.ndarray
+    at_charge: NDArray[np.float64]
+    at_position: NDArray[np.float64]
+    orb_center: NDArray[np.int32]
+    orb_type: NDArray[np.int32]
+    orb_exponent: NDArray[np.float64]
+    mo_energy: NDArray[np.float64]
+    mo_occupation: NDArray[np.float64]
+    mo_coeffs: NDArray[np.float64]
 
-    def __repr__(self) -> str:
+    def __repr__(self: Wavefunction) -> str:
+        """Pretty-print Wavefunction."""
         return (
             f"Wavefunction(natm={self.natm}, norb={self.norb}, nmo={self.nmo}\n"
             + f"  at_name={self.at_name}\n"
@@ -52,12 +59,14 @@ class Wavefunction:
             + ")"
         )
 
-    def cartesian_powers(self) -> np.ndarray:
-        """Return the cartesian powers for primitive orbitals)"""
+    @property
+    def cartesian_powers(self: Wavefunction) -> NDArray[np.int32]:
+        """Return the cartesian powers for primitive orbitals."""
         return np.array([PATDATA[i - 1] for i in self.orb_type])
 
 
 def loads(data: str) -> Wavefunction:
+    """Parse a string that contains a .wfn file."""
     # module
     from ._parser import parser
 
@@ -86,6 +95,7 @@ def loads(data: str) -> Wavefunction:
     for i in range(natm):
         if atom_names[i] is None:
             raise ParserError(f"Missing atom with index {i+1}")
+    atom_names = cast(List[str], atom_names)  # verified no None are present
 
     icnt = np.array([int(i) - 1 for i in dat["icnt"]])
     if len(icnt) != norb:

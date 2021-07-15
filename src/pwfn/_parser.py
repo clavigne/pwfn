@@ -1,24 +1,15 @@
 # external
 from pyparsing import (
-    Combine,
     Group,
     LineEnd,
-    LineStart,
     Literal,
-    nums,
-    oneOf,
     OneOrMore,
-    Optional,
     ParserElement,
     printables,
     Regex,
-    SkipTo,
-    StringEnd,
-    StringStart,
     tokenMap,
     White,
     Word,
-    ZeroOrMore,
 )
 
 ParserElement.enablePackrat()  # faster
