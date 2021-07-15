@@ -1,17 +1,18 @@
 """pwfn is a single-page parser library for .wfn files."""
 from __future__ import annotations
 
-
 # std
 from dataclasses import dataclass
-from typing import Any, cast, List, NewType
+from typing import Any, cast, List
 
 # external
 import numpy as np
+
 try:
+    # external
     from numpy.typing import NDArray
 except ImportError:
-    NDArray = List
+    NDArray = List  # type:ignore
 
 # module
 from ._orbpowers import PATDATA
