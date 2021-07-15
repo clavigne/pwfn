@@ -6,14 +6,14 @@ chemistry programs and [Molden2Aim](https://github.com/zorkzou/Molden2AIM/)
 into a Python data structure. This can be used to do ML on electronic
 wavefunctions. 
 
-pwfn does not do anything besides parsing! It is basically a single page,
-simple [pyparsing](https://github.com/pyparsing/pyparsing/) grammar. You'll
-need to do your own data processing from its outputs.
+This library does not do anything besides parsing! It is basically a single
+page [pyparsing](https://github.com/pyparsing/pyparsing/) grammar. You'll need
+to do your own data processing from its outputs.
 
 
 ## Usage
 
-pwfn consists of a single string parser `pwfn.loads(s)`,
+**pwfn** consists of a single string parser `pwfn.loads(s)`,
 
 ```python
 import pwfn
@@ -29,25 +29,27 @@ format).
 
 ## Installation
 
-pwfn is available from pip,
+**pwfn** is available from pip,
 
 ```shell
 pip install pwfn
 ```
 
-pwfn depends on [pyparsing](https://github.com/pyparsing/pyparsing/) and [numpy](https://numpy.org/).
+It depends on the excellent
+[pyparsing](https://github.com/pyparsing/pyparsing/) library as well as
+[numpy](https://numpy.org/).
 
 ## Notes
 
 If you want a similarly minimalist library to parse formatted checkpoint
-files, see [fchic](https://github.com/clavigne/fchic). If you are looking for
-a full feature solution for wavefunction data analysis, consider using the
-excellent [Multiwfn program](http://sobereva.com/multiwfn/) or
-[orbkit](https://github.com/orbkit/orbkit).
+files, consider my other library [fchic](https://github.com/clavigne/fchic).
+If you are looking for a full feature solution for wavefunction data analysis,
+consider using the excellent [Multiwfn program](http://sobereva.com/multiwfn/)
+or [orbkit](https://github.com/orbkit/orbkit).
 
 
 ## License
 
-pwfn is free software provided under the MIT license.
+**pwfn** is free software provided under the MIT license.
 
 
