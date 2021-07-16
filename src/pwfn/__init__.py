@@ -1,13 +1,17 @@
 """pwfn is a single-page parser library for .wfn files."""
 from __future__ import annotations
 
+
 # std
 from dataclasses import dataclass
-from typing import Any, cast, List
+from typing import Any, cast, List, NewType
 
 # external
 import numpy as np
-from numpy.typing import NDArray
+try:
+    from numpy.typing import NDArray
+except ImportError:
+    NDArray = List
 
 # module
 from ._orbpowers import PATDATA
@@ -33,7 +37,7 @@ class Wavefunction:
     natm: int
     norb: int
     nmo: int
-    at_name: list[str]
+    at_name: List[str]
     at_charge: NDArray[np.float64]
     at_position: NDArray[np.float64]
     orb_center: NDArray[np.int32]
